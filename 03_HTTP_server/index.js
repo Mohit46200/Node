@@ -6,11 +6,11 @@ const myserver = http.createServer((req, res) => {
     fs.appendFile("./log.txt",log,(err,data) => {
         switch(req.url){
             case ("/"): res.end("This is home page")
-                        break
+                        break;
             case ("/about"): res.end("This is about page")
-                        break
+                        break;
             case ("/contactus"): res.end("This is contact page")
-                        break
+                        break;
         }
     })
 })
