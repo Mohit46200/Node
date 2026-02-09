@@ -1,0 +1,30 @@
+// Version
+//
+//
+4.18.3
+
+1st Part -> 4
+2nd Part -> 18
+3rd Part -> 2
+
+// 3rd Part (Last Part) – Minor Fixes (Optional)
+Latest -> 4.18.5
+
+
+// 2nd Part – Recommended Bug Fix (Security)
+Latest -> 4.19.0
+
+// 3rd Major Release - Major and Breaking update
+if you are making an app in version 4.18.2 and an update came (5.0.0) then donot update it because
+the may be you existing code of that app will not work
+
+// ^ symbol
+this means that install all Recommended and Minor fixes automatically
+//~ symbol
+this means that only update minor fixes automatically
+// Latest
+if we write latest in place of version that it will automatically update to latest
+
+
+
+** react follow CSR (client side rendering ) which is slow but we will do server side rendering (ssr)
