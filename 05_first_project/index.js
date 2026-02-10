@@ -1,6 +1,10 @@
 const express = require("express")
 const users = require("./MOCK_DATA.json")
+const fs =require("fs")
+
+
 const app = express()
+
 
 app.get("/api/users",(req,res) => {
     return res.json(users)
@@ -12,6 +16,10 @@ app.get("/users",(req,res) => {
     </ul>`
     return res.send(html)
 })
+
+app.use(express.urlencoded({extended:false}))   //this will convert form data into object this is called plugin
+
+
 // dynamic path parameter
 // /api/user/:id
 // here id is variable
@@ -23,7 +31,17 @@ app.route("/api/users/:userid")
         return res.json(user)
     })
     .post((req,res) => {
-        return res.json({"request": "pending"})
+        const body = req.body     //in this body we get the data from the client and we will insert it into users
+        // users.push({           // we can also do by below meyhod
+        //     "email": body.email,
+        //     "first_name": body.first_name,
+        //     //etc
+        // })
+        users.push({...body, "id":users.length+1})
+        fs.writeFile("./MOCK_DATA.json", JSON.stringify(users),(err,data) => {
+            return res.json({"request": "pending"})
+        })
+        
     })
     .patch((req,res) => {
         return res.json({"request": "pending"})
