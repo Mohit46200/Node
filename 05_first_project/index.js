@@ -7,6 +7,8 @@ const app = express()
 
 
 app.get("/api/users",(req,res) => {
+    res.setHeader("X-name","Mohit")  //this is the way to send a header alsways type X in custom header
+    console.log(req.header)        //this is the way to see the incoming header
     return res.json(users)
 })
 app.get("/users",(req,res) => {
@@ -17,7 +19,7 @@ app.get("/users",(req,res) => {
     return res.send(html)
 })
 
-app.use(express.urlencoded({extended:false}))   //this will convert form data into object this is called plugin
+app.use(express.urlencoded({extended:false}))  //this will convert form data into object this is called plugin (middleware)
 
 
 // dynamic path parameter
