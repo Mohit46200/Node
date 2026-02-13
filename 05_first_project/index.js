@@ -1,6 +1,40 @@
 const express = require("express")
 const users = require("./MOCK_DATA.json")
 const fs =require("fs")
+const mongoose = require("mongoose")
+
+
+//connection
+mongoose
+        .connect('mongodb+srv://mohit22600_db_user:YED7E60PdueaZRJR@cluster0.cyzqtqr.mongodb.net/?appName=Cluster0')
+        .then(() => console.log("Database connected"))
+        .catch((err )=> console.log("Error",err))
+
+//scema
+const userScema = new mongoose.Schema({
+    firstName:{
+        type:String,
+        required: true,
+    },
+    lastname:{
+        type: String,
+    },
+    email:{
+        type:String,
+        required:true,
+        unique: true,
+    },
+    job_title:{
+        type: String
+    },
+    gender:{
+        type: String
+    }
+
+})
+
+const User= mongoose.model('user',userScema)
+
 
 
 const app = express()
