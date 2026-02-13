@@ -41,7 +41,7 @@ app.route("/api/users/:userid")
         // })
         users.push({...body, "id":users.length+1})
         fs.writeFile("./MOCK_DATA.json", JSON.stringify(users),(err,data) => {
-            return res.json({request: "success",id :users.length})
+            return res.status(201).json({request: "success",id :users.length})
         })
         
     })
