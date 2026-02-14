@@ -2,21 +2,22 @@ const express = require("express")
 const users = require("./MOCK_DATA.json")
 const fs =require("fs")
 const mongoose = require("mongoose")
+const { send } = require("process")
 
 
 //connection
 mongoose
-        .connect('mongodb+srv://mohit22600_db_user:YED7E60PdueaZRJR@cluster0.cyzqtqr.mongodb.net/?appName=Cluster0')
+        .connect("mongodb+srv://mohit22600:dpXsejSe31ILy41F@cluster0.dlnt1ti.mongodb.net/")
         .then(() => console.log("Database connected"))
         .catch((err )=> console.log("Error",err))
 
 //scema
 const userScema = new mongoose.Schema({
-    firstName:{
+    first_name:{
         type:String,
         required: true,
     },
-    lastname:{
+    last_name:{
         type: String,
     },
     email:{
@@ -36,8 +37,12 @@ const userScema = new mongoose.Schema({
 const User= mongoose.model('user',userScema)
 
 
-
 const app = express()
+
+
+//middlewares
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))  //this will convert form data into object this is called plugin (middleware)
 
 
 app.get("/api/users",(req,res) => {
@@ -53,31 +58,33 @@ app.get("/users",(req,res) => {
     return res.send(html)
 })
 
-app.use(express.urlencoded({extended:false}))  //this will convert form data into object this is called plugin (middleware)
-
-
 // dynamic path parameter
 // /api/user/:id
 // here id is variable
 
-app.route("/api/users/:userid")
+app.route("/api/users")
     .get((req,res) => {
         const id=Number(req.params.userid)
         const user=users.find((user) => user.id === id)
         return res.json(user)
     })
-    .post((req,res) => {
+    .post(async(req,res) => {
         const body = req.body     //in this body we get the data from the client and we will insert it into users
         // users.push({           // we can also do by below meyhod
         //     "email": body.email,
         //     "first_name": body.first_name,
         //     //etc
         // })
-        users.push({...body, "id":users.length+1})
-        fs.writeFile("./MOCK_DATA.json", JSON.stringify(users),(err,data) => {
-            return res.status(201).json({request: "success",id :users.length})
+        console.log("fuck",body)
+        const result =await User.create({
+            first_name: body.first_name,
+            last_name: body.last_name,
+            email: body.email,
+            gender: body.gender,
+            job_title: body.job_title,
         })
-        
+        console.log(result)
+        return res.status(201).json({msg: "Success"})
     })
     .patch((req,res) => {
         return res.json({"request": "pending"})
@@ -86,4 +93,4 @@ app.route("/api/users/:userid")
         return res.json({"request": "pending"})
     })
 
-app.listen(8002,() => console.log("server strted"))
+app.listen(8002,() => console.log("server started"))
