@@ -32,7 +32,7 @@ const userScema = new mongoose.Schema({
         type: String
     }
 
-})
+},{timestamps: true})
 
 const User= mongoose.model('user',userScema)
 
@@ -50,10 +50,11 @@ app.get("/api/users",(req,res) => {
     console.log(req.header)        //this is the way to see the incoming header
     return res.json(users)
 })
-app.get("/users",(req,res) => {
+app.get("/users",async (req,res) => {
+    const alldbUser= await User.find({})
     const html=
     `<ul>
-        ${users.map((user) => `<li>${user.email}</li>`).join("")}
+        ${alldbUser.map((user) => `<li>${user.first_name}${user.email}</li>`).join("")}
     </ul>`
     return res.send(html)
 })
