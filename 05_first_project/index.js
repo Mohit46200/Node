@@ -1,8 +1,7 @@
 const express = require("express")
 const users = require("./MOCK_DATA.json")
-const fs =require("fs")
 const mongoose = require("mongoose")
-const { send } = require("process")
+
 
 
 //connection
@@ -47,9 +46,10 @@ app.use(express.urlencoded({extended:false}))  //this will convert form data int
 
 app.get("/api/users",(req,res) => {
     res.setHeader("X-name","Mohit")  //this is the way to send a header alsways type X in custom header
-    console.log(req.header)        //this is the way to see the incoming header
+    console.log(req.headers)        //this is the way to see the incoming header
     return res.json(users)
 })
+
 app.get("/users",async (req,res) => {
     const alldbUser= await User.find({})
     const html=
@@ -59,39 +59,49 @@ app.get("/users",async (req,res) => {
     return res.send(html)
 })
 
-// dynamic path parameter
-// /api/user/:id
-// here id is variable
 
-app.route("/api/users")
-    .get((req,res) => {
-        const id=Number(req.params.userid)
-        const user=users.find((user) => user.id === id)
+//all types of task done in db
+// Task	                            Method
+
+// Create	                        create()
+// Read	                            find(), findOne(), findById()
+// Update	                        updateOne(), findByIdAndUpdate()
+// Delete	                        deleteOne(), findByIdAndDelete()
+// Count	                        countDocuments()
+// Advanced	                        aggregate()
+
+
+app.route("/api/users/:userid")
+    .get(async(req,res) => {
+        const id=req.params.userid
+        const user=await User.findById(id)
         return res.json(user)
     })
-    .post(async(req,res) => {
-        const body = req.body     //in this body we get the data from the client and we will insert it into users
-        // users.push({           // we can also do by below meyhod
-        //     "email": body.email,
-        //     "first_name": body.first_name,
-        //     //etc
-        // })
-        console.log("fuck",body)
-        const result =await User.create({
-            first_name: body.first_name,
-            last_name: body.last_name,
-            email: body.email,
-            gender: body.gender,
-            job_title: body.job_title,
-        })
-        console.log(result)
-        return res.status(201).json({msg: "Success"})
-    })
+
     .patch((req,res) => {
         return res.json({"request": "pending"})
     })
     .delete((req,res) => {
         return res.json({"request": "pending"})
     })
+
+
+
+app.route("/api/users")
+        .post(async(req,res) => {
+            const body = req.body     //in this body we get the data from the client and we will insert it into users
+            console.log("fuck",body)
+            const result = await User.create({
+                first_name: body.first_name,
+                last_name: body.last_name,
+                email: body.email,
+                gender: body.gender,
+                job_title: body.job_title,
+            })
+            console.log(result)
+            return res.status(201).json({msg: "Success"})
+        })
+
+
 
 app.listen(8002,() => console.log("server started"))
