@@ -7,7 +7,6 @@ async function connectMongoDb(url) {
             .catch((err )=> console.log("Error",err))
 }
 
-module.exports = {
-    connectMongoDb
-}
+module.exports = connectMongoDb
+
 

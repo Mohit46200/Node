@@ -12,8 +12,10 @@ async function getAllUser(req,res){
     return res.send(html)
 }
 
+
+
 async function addUser(req,res){
-    const body = req.body     //in this body we get the data from the client and we will insert it into users
+    const body = req.body    
         console.log("fuck",body)
         const result = await User.create({
             first_name: body.first_name,
@@ -25,6 +27,8 @@ async function addUser(req,res){
         console.log(result)
         return res.status(201).json({msg: "Success"})
 }
+
+
 
 async function gerUserById (req,res){
         const id=req.params.userid

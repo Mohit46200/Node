@@ -1,6 +1,6 @@
 const express = require("express")
 const userRouter = require("./router")
-const {connectMongoDb} = require("./connection")
+const connectMongoDb = require("./connection")
 const middleware = require("./middleware")
 
 const app = express()
