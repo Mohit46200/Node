@@ -39,3 +39,5 @@
 1770531965955: GET :/search?search=skfksdfkjn+fdssdf+gdfgdfg+fdgfdg : new request recieved
 1770532211661: GET :/signup : new request recieved
 1770532219331: GET :/signup : new request recieved
+1770532246039: GET :/signup : new request recieved
+1770593989323: GET :/ : new request recieved

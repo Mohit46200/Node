@@ -28,11 +28,11 @@ fs.readFile("./test2.txt","utf-8",(err,result) => {
 })
 
 
-// ****************************appending nto a file*********************************
+// ****************************appending into a file**********************************
 
 
 //sync
-// fs.appendFileSync("./test2.txt",`Hello buddy\n`)
+fs.appendFileSync("./test2.txt",`Hello buddy\n`)
 
 //async
 

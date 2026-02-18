@@ -2,8 +2,8 @@ const http = require("http")
 const fs = require("fs")
 const url = require("url")
 
-const myserver = http.createServer((req, res) => {
-    const log = `${Date.now()}: ${req.method} :${req.url} : new request recieved\n`
+const myhandler = ((req,res) => {
+        const log = `${Date.now()}: ${req.method} :${req.url} : new request recieved\n`
     const myUrl = url.parse(req.url,true)
     console.log(myUrl)
     fs.appendFile("./log.txt",log,(err,data) => {
@@ -28,6 +28,8 @@ const myserver = http.createServer((req, res) => {
         }
     })
 })
+
+const myserver = http.createServer(myhandler)
 
 myserver.listen(8000, () => {
     console.log("server started")
