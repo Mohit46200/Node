@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState ,useEffect} from "react"
+import axios from "axios"
+
 
 const addUrl = () =>{
     const [data, setData] = useState("")
@@ -9,12 +11,34 @@ const addUrl = () =>{
         setData("")
     }
     const flex = {
-  display: "flex",
-  gap: "50px"
-}
-const gap = {
-  marginRight: "50px"
-}
+        display: "flex",
+        gap: "50px"
+    }
+    const gap = {
+        marginRight: "50px"
+    }
+
+    const apidata = async() => {
+        try{
+            const res = await axios.get("http://localhost:8002/api/users")
+            console.log(res)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        apidata()
+    },[])
+
+    // useEffect(() => {
+    // fetch("http://localhost:8002/api/users")
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+    //   .catch(err => console.log(err))
+    // }, [])
+
+
     return (
         <>
             <form onSubmit={submit} >
