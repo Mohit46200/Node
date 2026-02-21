@@ -8,9 +8,16 @@ const addUrl = () =>{
         setUrl((prev) => [...prev,data])
         setData("")
     }
+    const flex = {
+  display: "flex",
+  gap: "50px"
+}
+const gap = {
+  marginRight: "50px"
+}
     return (
         <>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} >
                 <h1>Add url form here</h1>
                 <input
                 type="text"
@@ -23,9 +30,17 @@ const addUrl = () =>{
                 <button type="submit">Submit</button>
 
             </form>
+            <div style={flex}>
+                <h1>Sno.</h1> 
+                <h1>URL</h1>
+            </div>
             {url.map((data,index) => {
-                return <h3>{data}</h3>
+                return <div style={flex}>
+                    <h2 style={gap}>{index+1}</h2>
+                    <h2>{data}</h2>
+                </div>
             })}
+           
         </>
     )
 }
