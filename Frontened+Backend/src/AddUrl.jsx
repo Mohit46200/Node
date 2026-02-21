@@ -1,72 +1,33 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-const AddUrl = () => {
+const addUrl = () =>{
     const [data, setData] = useState("")
-    const [urls, setUrls] = useState([])
-
-    useEffect(() => {
-        fetchUrls()
-    }, [])
-
-    const fetchUrls = async () => {
-        try {
-            const res = await axios.get("http://localhost:9001/url/allurls")
-            setUrls(res.data)
-        } catch (err) {
-            console.log("GET ERROR:", err)
-        }
-    }
-
-    const submit = async (e) => {
+    const [url,setUrl] = useState([])
+    const submit = (e) => {
         e.preventDefault()
-
-        if (!data.trim()) return
-
-        try {
-            await axios.post("http://localhost:9001/url", {
-                url: data
-            })
-
-            fetchUrls()
-            setData("")
-        } catch (err) {
-            console.log("POST ERROR:", err)
-        }
+        setUrl((prev) => [...prev,data])
+        setData("")
     }
-
     return (
-        <div>
-            <h2>Add URL</h2>
-
+        <>
             <form onSubmit={submit}>
+                <h1>Add url form here</h1>
                 <input
-                    type="text"
-                    placeholder="Enter URL"
-                    value={data}
-                    onChange={(e) => setData(e.target.value)}
-                />
+                type="text"
+                placeholder="https://www.example.com"
+                value={data}
+                onChange={(e) => {
+                    setData(e.target.value)
+                }}
+                ></input>
                 <button type="submit">Submit</button>
-            </form>
 
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Sno.</th>
-                        <th>Original Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {urls.map((item, index) => (
-                        <tr key={item.shortId}>
-                            <td>{index + 1}</td>
-                            <td>{item.redirectURL}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+            </form>
+            {url.map((data,index) => {
+                return <h3>{data}</h3>
+            })}
+        </>
     )
 }
 
-export default AddUrl
+export default addUrl
