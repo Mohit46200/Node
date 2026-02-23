@@ -4,12 +4,12 @@ import axios from "axios"
 
 const addUrl = () =>{
     const [data, setData] = useState([])
-    const flex = {
-        display: "flex",
-        gap: "50px"
-    }
-    const gap = {
-        marginRight: "50px"
+    const rowStyle = {
+    display: "grid",
+    gridTemplateColumns: "60px 150px 150px 120px 250px 150px",
+    alignItems: "center",
+    padding: "8px 0",
+    borderBottom: "1px solid #ccc"
     }
 
     const apidata = async () => {
@@ -42,13 +42,26 @@ const addUrl = () =>{
                 <button type="submit">Submit</button>
 
             </form>
-            <div style={flex}>
-                <h1>Sno.</h1> 
-                <h1>URL</h1>
+            <div style={{ ...rowStyle, fontWeight: "bold", borderBottom: "2px solid black" }}>
+                <h3>Sno.</h3> 
+                <h3>First Name</h3>
+                <h3>Last Name</h3>
+                <h3>Gender</h3>
+                <h3>Email</h3>
+                <h3>Job Title</h3>
             </div>
 
-            {data.map((user) => {
-                return <h3>{user.first_name}</h3>
+            {data.map((user,index) => {
+                return <div style={rowStyle}>
+                    <h3>{index+1}</h3>
+                    <h3>{user.first_name}</h3>
+                    <h3>{user.last_name}</h3>
+                    <h3>{user.gender}</h3>
+                    <h3>{user.email}</h3>
+                    <h3>{user.job_title}</h3>
+                    </div>
+                
+            
             })}
             
            
