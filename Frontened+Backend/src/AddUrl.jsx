@@ -3,13 +3,7 @@ import axios from "axios"
 
 
 const addUrl = () =>{
-    const [data, setData] = useState("")
-    const [url,setUrl] = useState([])
-    const submit = (e) => {
-        e.preventDefault()
-        setUrl((prev) => [...prev,data])
-        setData("")
-    }
+    const [data, setData] = useState([])
     const flex = {
         display: "flex",
         gap: "50px"
@@ -18,30 +12,24 @@ const addUrl = () =>{
         marginRight: "50px"
     }
 
-    const apidata = async() => {
-        try{
+    const apidata = async () => {
+        try {
             const res = await axios.get("http://localhost:8002/api/users")
-            console.log(res)
-        }
-        catch(error){
+            setData(res.data)
+            console.log(res.data)
+        } catch (error) {
             console.log(error)
         }
     }
+
     useEffect(() => {
         apidata()
-    },[])
-
-    // useEffect(() => {
-    // fetch("http://localhost:8002/api/users")
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .catch(err => console.log(err))
-    // }, [])
+    }, [])
 
 
     return (
         <>
-            <form onSubmit={submit} >
+            <form  >
                 <h1>Add url form here</h1>
                 <input
                 type="text"
@@ -58,12 +46,11 @@ const addUrl = () =>{
                 <h1>Sno.</h1> 
                 <h1>URL</h1>
             </div>
-            {url.map((data,index) => {
-                return <div style={flex}>
-                    <h2 style={gap}>{index+1}</h2>
-                    <h2>{data}</h2>
-                </div>
+
+            {data.map((user) => {
+                return <h3>{user.first_name}</h3>
             })}
+            
            
         </>
     )
