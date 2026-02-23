@@ -30,14 +30,26 @@ const addUrl = () =>{
     return (
         <>
             <form  >
-                <h1>Add url form here</h1>
+                <h1>Add data form here</h1>
                 <input
                 type="text"
-                placeholder="https://www.example.com"
-                value={data}
-                onChange={(e) => {
-                    setData(e.target.value)
-                }}
+                placeholder="First_name"               
+                ></input>
+                <input
+                type="text"
+                placeholder="Last_name"               
+                ></input>
+                <input
+                type="text"
+                placeholder="Gender"               
+                ></input>
+                <input
+                type="text"
+                placeholder="user_name@gmail.com"               
+                ></input>
+                <input
+                type="text"
+                placeholder="Job_title"               
                 ></input>
                 <button type="submit">Submit</button>
 
