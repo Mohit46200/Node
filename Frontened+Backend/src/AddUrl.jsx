@@ -4,6 +4,13 @@ import axios from "axios"
 
 const addUrl = () =>{
     const [data, setData] = useState([])
+    const [postdata,setPostdata] = useState({
+        first_name:"",
+        last_name:"",
+        gender:"",
+        email:"",
+        job_title:""
+    })
     const rowStyle = {
     display: "grid",
     gridTemplateColumns: "60px 150px 150px 120px 250px 150px",
@@ -26,30 +33,76 @@ const addUrl = () =>{
         apidata()
     }, [])
 
+    const postrequest = async(e) => {
+        e.preventDefault()
+            console.log("Post Data is:", postdata)  
+        try{
+
+            await axios.post("http://localhost:8002/api/users",postdata)
+            setPostdata({
+                first_name:"",
+                last_name:"",
+                gender:"",
+                email:"",
+                job_title:""
+            })
+            apidata()
+        }
+        catch(error) {
+            consol.log(error)
+        }
+    }
+
+    const change = (e) => {
+        setPostdata((prev) => {
+            return {
+                ...prev,
+            [e.target.name]: e.target.value
+
+            }
+        })
+
+    }
+
 
     return (
         <>
-            <form  >
+            <form onSubmit={postrequest} >
                 <h1>Add data form here</h1>
                 <input
                 type="text"
-                placeholder="First_name"               
+                placeholder="First_name"       
+                value={postdata.first_name} 
+                name="first_name"
+                onChange={change}       
                 ></input>
                 <input
                 type="text"
-                placeholder="Last_name"               
+                placeholder="Last_name"   
+                value={postdata.last_name} 
+                name="last_name"
+                onChange={change}       
                 ></input>
                 <input
                 type="text"
-                placeholder="Gender"               
+                placeholder="Gender"   
+                value={postdata.gender}  
+                name="gender"
+                onChange={change}       
                 ></input>
                 <input
                 type="text"
-                placeholder="user_name@gmail.com"               
+                placeholder="user_name@gmail.com"           
+                value={postdata.email} 
+                name="email"
+                onChange={change}       
                 ></input>
                 <input
                 type="text"
-                placeholder="Job_title"               
+                placeholder="Job_title"    
+                value={postdata.job_title}  
+                name="job_title"
+                onChange={change}       
                 ></input>
                 <button type="submit">Submit</button>
 
