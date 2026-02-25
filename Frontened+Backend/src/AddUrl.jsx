@@ -1,9 +1,12 @@
-import { useState ,useEffect} from "react"
+import { useState ,useEffect, useContext} from "react"
 import axios from "axios"
+import { Globalcontext } from "./globalcontext"
+import { Navigate } from "react-router-dom";
 
 
 const addUrl = () =>{
     const [data, setData] = useState([])
+    const {islogin,setIslogin} = useContext(Globalcontext)
     const [postdata,setPostdata] = useState({
         first_name:"",
         last_name:"",
@@ -62,6 +65,9 @@ const addUrl = () =>{
             }
         })
 
+    }
+    if(!islogin){
+        return <Navigate to={"/login"}/>
     }
 
 

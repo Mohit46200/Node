@@ -1,6 +1,7 @@
 import { createBrowserRouter ,Navigate } from "react-router-dom"
 import AddUrlchild from "./AddUrlchild"
 import Layout from "./Layout"
+import Loginchild from "./Loginchild"
 
 
 const Router = createBrowserRouter([
@@ -12,7 +13,8 @@ const Router = createBrowserRouter([
                 index:true,
                 element:<Navigate to={"/addurl"}/>
             },
-            AddUrlchild()
+            AddUrlchild(),
+            Loginchild()
         ]
     }
 ])
