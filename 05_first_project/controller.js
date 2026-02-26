@@ -1,4 +1,5 @@
 const User = require("./schema.js")
+const Login = require("./loginScema.js")
 
 async function getAllUser(req,res){
     res.setHeader("X-name","Mohit")  //this is the way to send a header alsways type X in custom header
@@ -9,7 +10,7 @@ async function getAllUser(req,res){
     `<ul>
         ${alldbUser.map((user) => `<li>${user.first_name}${user.email}</li>`).join("")}
     </ul>`
-    return res.send(html)
+    return res.json(alldbUser)
 }
 
 
@@ -46,11 +47,22 @@ async function patchUserById(req,res){
         return res.json({"request": "pending"})
 }
 
+async function login(req,res){
+        const body=req.body
+        const result = await Login.create({
+            email:body.email,
+            password:body.password
+        })
+        console.log(result)
+        return res.status(201).json({msg: "Success"})
+}
+
 
 module.exports = {
     getAllUser,
     addUser,
     gerUserById,
     deleteUserById,
-    patchUserById
+    patchUserById,
+    login
 }
