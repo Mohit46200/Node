@@ -52,7 +52,7 @@ const addUrl = () =>{
             apidata()
         }
         catch(error) {
-            consol.log(error)
+            console.log(error)
         }
     }
 
