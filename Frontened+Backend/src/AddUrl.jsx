@@ -16,7 +16,7 @@ const addUrl = () =>{
     })
     const rowStyle = {
     display: "grid",
-    gridTemplateColumns: "60px 150px 150px 120px 250px 150px",
+    gridTemplateColumns: "61px 150px 150px 120px 250px 150px",
     alignItems: "center",
     padding: "8px 0",
     borderBottom: "1px solid #ccc"
