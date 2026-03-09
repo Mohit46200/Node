@@ -5,11 +5,11 @@ import axios from "axios";
 
 
 const Login = () => {
-
-    const {islogin,setIslogin} = useContext(Globalcontext)
+    const {islogin,setIslogin,id,setId} = useContext(Globalcontext)
     const [login,setLogin] = useState({
         email:"",
-        password:""
+        password:"",
+        id:""
     })
 
     
@@ -25,20 +25,34 @@ const Login = () => {
         })
     }
 
-    const formsubmit = async(e) => {
-        e.preventDefault()
-        try{
-            await axios.post("http://localhost:8002/api/users/login",login)
-            setLogin({
-                email:"",
-                password:""
-            })
-            setIslogin(true)
-        }
-        catch(error) {
-            console.log(error)
-        }
+   const formsubmit = async (e) => {
+    e.preventDefault()
+
+    const id = crypto.randomUUID()
+
+    const payload = {
+        ...login,
+        id: id
     }
+
+    setLogin(payload)
+    setId(id)
+
+    try{
+        await axios.post("http://localhost:8002/api/users/login", payload)
+
+        setLogin({
+            email:"",
+            password:"",
+            id:""
+        })
+
+        setIslogin(true)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
 
     return (
             <div style={{ 
